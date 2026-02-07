@@ -1,0 +1,197 @@
+{
+  "info": {
+    "name": "Spring Boot GraphQL Order Service - Organized",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": "Organized Postman collection with folders, environment variables, and user-specific sample data"
+  },
+  "variable": [
+    {
+      "key": "GRAPHQL_URL",
+      "value": "http://localhost:9091/graphql",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "Queries",
+      "item": [
+        {
+          "name": "Health Check",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{GRAPHQL_URL}}"
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\"query\": \"{ __schema { queryType { name } } }\"}"
+            }
+          }
+        },
+        {
+          "name": "Get All Users",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{GRAPHQL_URL}}"
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\"query\": \"{ getUsers { userId name phone email password orders { orderId orderDetail address price } } }\"}"
+            }
+          }
+        },
+        {
+          "name": "Get User By ID",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{GRAPHQL_URL}}"
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\"query\": \"query($userId: ID!) { getUser(userId: $userId) { userId name phone email orders { orderId orderDetail price } } }\", \"variables\": {\"userId\": \"1\"}}"
+            }
+          }
+        },
+        {
+          "name": "Get All Orders",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{GRAPHQL_URL}}"
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\"query\": \"{ getOrders { orderId orderDetail address price user { userId name email } } }\"}"
+            }
+          }
+        },
+        {
+          "name": "Get Order By ID",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{GRAPHQL_URL}}"
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\"query\": \"query($orderId: ID!) { getOrder(orderId: $orderId) { orderId orderDetail address price user { userId name } } }\", \"variables\": {\"orderId\": \"1\"}}"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Mutations",
+      "item": [
+        {
+          "name": "Create User",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{GRAPHQL_URL}}"
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\"query\": \"mutation($name:String, $phone:String, $email:String, $password:String) { createUser(name:$name, phone:$phone, email:$email, password:$password) { userId name phone email } }\", \"variables\": {\"name\": \"Deep Kushwaha\", \"phone\": \"6386613507\", \"email\": \"21deepkushwaha3@gmail.com\", \"password\": \"deep123\"}}"
+            }
+          }
+        },
+        {
+          "name": "Delete User",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{GRAPHQL_URL}}"
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\"query\": \"mutation($userId: ID!) { deleteUser(userId: $userId) }\", \"variables\": {\"userId\": \"1\"}}"
+            }
+          }
+        },
+        {
+          "name": "Create Order",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{GRAPHQL_URL}}"
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\"query\": \"mutation($orderDetail:String, $address:String, $price:Int, $userId:ID!) { createOrder(orderDetail:$orderDetail, address:$address, price:$price, userId:$userId) { orderId orderDetail address price } }\", \"variables\": {\"orderDetail\": \"First order of Deep\", \"address\": \"Pune\", \"price\": 1500, \"userId\": \"1\"}}"
+            }
+          }
+        },
+        {
+          "name": "Delete Order",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{GRAPHQL_URL}}"
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\"query\": \"mutation($orderId: ID!) { deleteOrder(orderId: $orderId) }\", \"variables\": {\"orderId\": \"1\"}}"
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
